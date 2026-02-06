@@ -1,0 +1,16 @@
+# --- Required Variables ---
+# Must be globally unique across all of Azure.
+storage_account_name = "stminecraftunique123"
+acr_name             = "acrminecraftunique123"
+
+# --- Optional Custom Domain ---
+# Uncomment and set your domain to enable Azure DNS management.
+# If commented out or null, the default Azure Container Apps FQDN/IP will be used.
+# domain_name        = "mydomain.com"
+
+# --- Optional Overrides (Defaults shown) ---
+# resource_group_name  = "minecraft-rg"
+# location             = "westeurope"
+# container_app_name   = "minecraft-app"
+# aca_environment_name = "minecraft-env"
+# image_name           = "itzg/minecraft-server:stable-java21-jdk"

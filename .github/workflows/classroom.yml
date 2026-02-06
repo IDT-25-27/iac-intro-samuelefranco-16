@@ -1,0 +1,37 @@
+name: GitHub Classroom Workflow
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  check-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for Screenshots
+        id: check_files
+        run: |
+          echo "Looking for student screenshot files (excluding templates)..."
+          # Find png, jpg, jpeg files, excluding dynmap.png and MC.png
+          IMAGE_COUNT=$(find . -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) -not -path '*/.*' -not -name "dynmap.png" -not -name "MC.png" | wc -l)
+          
+          echo "Found $IMAGE_COUNT new/student images."
+          
+          if [ "$IMAGE_COUNT" -eq 0 ]; then
+            echo "::error::No new screenshots found! Please upload your own screenshots to the repository (don't rely on the default images)."
+            exit 1
+          else
+            echo "✅ Found $IMAGE_COUNT valid screenshots. Assignment check passed!"
+          fi
+
+      - name: Suggestion
+        if: success()
+        run: |
+          echo "Make sure you uploaded:"
+          echo "1. Minecraft Server Status"
+          echo "2. Dynmap Webpage"
